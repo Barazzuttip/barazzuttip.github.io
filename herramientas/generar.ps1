@@ -65,13 +65,19 @@ foreach ($u in $urls) {
   $g.Dispose(); $bmp.Dispose(); $img.Dispose(); Remove-Item $tmp
 }
 
-# ---------- 2) PDF del CV ----------
-$pdf = Join-Path $root "CV - Pablo Barazzutti.pdf"
-$tmpPdf = Join-Path $env:TEMP "cv-pablo-tmp.pdf"
-$html = "file:///" + ((Join-Path $root "cv\cv.html") -replace '\\', '/')
-Write-Host "Generando PDF ..."
-if (Test-Path $tmpPdf) { Remove-Item $tmpPdf }
-$ok = Invoke-Navegador @("--no-pdf-header-footer", "--virtual-time-budget=10000", "--print-to-pdf=`"$tmpPdf`"", $html) $tmpPdf 90
-if (-not $ok) { throw "No se genero el PDF." }
-Move-Item $tmpPdf $pdf -Force
-Write-Host "Listo: $pdf"
+# ---------- 2) PDF del CV en español e ingles ----------
+$versiones = @(
+  @{ lang = "es"; archivo = "CV - Pablo Barazzutti.pdf" },
+  @{ lang = "en"; archivo = "Resume - Pablo Barazzutti.pdf" }
+)
+foreach ($v in $versiones) {
+  $pdf = Join-Path $root $v.archivo
+  $tmpPdf = Join-Path $env:TEMP ("cv-pablo-tmp-" + $v.lang + ".pdf")
+  $html = "file:///" + ((Join-Path $root "cv\cv.html") -replace '\\', '/') + "?lang=" + $v.lang
+  Write-Host ("Generando PDF (" + $v.lang + ") ...")
+  if (Test-Path $tmpPdf) { Remove-Item $tmpPdf }
+  $ok = Invoke-Navegador @("--no-pdf-header-footer", "--virtual-time-budget=10000", "--print-to-pdf=`"$tmpPdf`"", $html) $tmpPdf 90
+  if (-not $ok) { throw ("No se genero el PDF " + $v.archivo) }
+  Move-Item $tmpPdf $pdf -Force
+  Write-Host "Listo: $pdf"
+}

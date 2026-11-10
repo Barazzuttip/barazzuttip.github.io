@@ -6,32 +6,38 @@ TODO SE EDITA EN UN SOLO ARCHIVO: datos.js
 
 Despues de editar, doble clic en: generar-pdf.bat
   - Saca captura de los sitios nuevos (carpeta "capturas")
-  - Crea "CV - Pablo Barazzutti.pdf" en esta carpeta
-  - Tarda unos 20 segundos por cada sitio nuevo
+  - Crea los 2 PDF en esta carpeta:
+      CV - Pablo Barazzutti.pdf        (español)
+      Resume - Pablo Barazzutti.pdf    (ingles)
+
+IDIOMAS
+-------
+En datos.js, los campos que terminan en _en son la version en ingles.
+  puesto:    "Desarrollador Web..."
+  puesto_en: "Web Developer..."
+Si cambias un texto en español, cambia tambien su _en.
+Rubros de los sitios ("Inmobiliaria", etc.) se traducen solos con la
+lista "traducciones" al final de datos.js.
+Textos fijos de la web (botones, titulos): js/textos-web.js
 
 CAMBIOS COMUNES
 ---------------
 * Agregar un sitio al portfolio:
-    En datos.js, dentro de "portfolio", copia una linea { nombre: ..., url: ... },
-    pegala abajo y cambia los datos. Despues corre generar-pdf.bat.
-
-* Un sitio cambio de diseno:
-    Borra su imagen de la carpeta "capturas" y corre generar-pdf.bat.
-
+    En "portfolio", copia una linea { nombre: ..., url: ... },
+    pegala donde quieras que aparezca y cambia los datos.
+* Cambiar el orden de los sitios: mueve las lineas.
+* Sacar un sitio: borra su linea (y si queres su imagen en "capturas").
+* Un sitio cambio de diseño o la captura salio con un popup:
+    Borra su imagen de "capturas" y corre generar-pdf.bat,
+    o reemplazala por una captura tuya con el mismo nombre (960x600 .jpg).
 * Si dejas SaleCore:
-    En "experiencia", cambia  hasta: "Presente"  por el ano, ej:  hasta: "2027"
+    En "experiencia", cambia  hasta: "Presente"  por el año, ej:  hasta: "2027"
     Para un trabajo nuevo, copia un bloque { puesto: ... } y ponelo primero.
-
 * Cambiar la foto: reemplaza assets/foto.png (cuadrada).
-
 * Nuevo certificado: guarda la imagen en assets/certificados y agregalo en "formacion".
 
-VER EL PORTFOLIO EN TU PC
--------------------------
-Abri index.html con doble clic.
-
-PUBLICAR EN GITHUB PAGES
-------------------------
-Subi TODO el contenido de esta carpeta a un repositorio llamado
-barazzuttip.github.io  -> queda en https://barazzuttip.github.io/
-Cada vez que generes un PDF nuevo, volve a subir los cambios.
+SUBIR LOS CAMBIOS A LA WEB (GitHub)
+-----------------------------------
+1. github.com/Barazzuttip/barazzuttip.github.io -> Add file -> Upload files
+2. Arrastra los archivos/carpetas que cambiaron (o todo de nuevo, se reemplaza)
+3. Commit changes. En 1-2 minutos se actualiza https://barazzuttip.github.io/

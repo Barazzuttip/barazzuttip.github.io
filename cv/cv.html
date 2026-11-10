@@ -122,18 +122,18 @@
 <div class="hoja">
   <aside class="lateral">
     <div class="foto"><img id="foto" alt=""></div>
-    <section><h2>Contacto</h2><ul class="contacto" id="contacto"></ul></section>
-    <section><h2>Habilidades</h2><div id="habilidades"></div></section>
-    <section class="ia"><h2>IA aplicada</h2><div class="chips" id="ia-chips"></div><p id="ia-texto"></p></section>
-    <section><h2>Idiomas</h2><div id="idiomas"></div></section>
+    <section><h2 data-i="contacto"></h2><ul class="contacto" id="contacto"></ul></section>
+    <section><h2 data-i="habilidades"></h2><div id="habilidades"></div></section>
+    <section class="ia"><h2 data-i="ia"></h2><div class="chips" id="ia-chips"></div><p id="ia-texto"></p></section>
+    <section><h2 data-i="idiomas"></h2><div id="idiomas"></div></section>
   </aside>
 
   <main class="principal">
     <header class="cabecera"><h1 id="nombre"></h1><p id="titulo"></p></header>
-    <section class="seccion"><h2>Perfil</h2><p class="perfil" id="perfil"></p></section>
-    <section class="seccion"><h2>Experiencia</h2><div id="experiencia"></div><p class="otras" id="otras"></p></section>
-    <section class="seccion"><h2>Formación</h2><div class="formacion" id="formacion"></div></section>
-    <div class="pie"><span id="pie-izq"></span><span>Portfolio completo en la página siguiente · <a id="pie-link"></a></span></div>
+    <section class="seccion"><h2 data-i="perfil"></h2><p class="perfil" id="perfil"></p></section>
+    <section class="seccion"><h2 data-i="experiencia"></h2><div id="experiencia"></div><p class="otras" id="otras"></p></section>
+    <section class="seccion"><h2 data-i="formacion"></h2><div class="formacion" id="formacion"></div></section>
+    <div class="pie"><span id="pie-izq"></span><span><span data-i="pieSig"></span> · <a id="pie-link"></a></span></div>
   </main>
 </div>
 
@@ -157,40 +157,58 @@
   };
   const link = (href, html) => href ? `<a href="${esc(href)}">${html}</a>` : html;
 
+  // Idioma: cv.html?lang=en genera la version en ingles
+  const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "es";
+  const t = (obj, campo) => CV.t(obj, campo, lang);
+  const UI = {
+    es: { contacto: "Contacto", habilidades: "Habilidades", ia: "IA aplicada", idiomas: "Idiomas", perfil: "Perfil",
+          experiencia: "Experiencia", formacion: "Formación", verCert: "Ver certificado ↗",
+          pieSig: "Portfolio completo en la página siguiente", portSub: "{n} sitios web desarrollados y publicados · clic en cada uno para visitarlo",
+          doc: "CV - Pablo Barazzutti" },
+    en: { contacto: "Contact", habilidades: "Skills", ia: "Applied AI", idiomas: "Languages", perfil: "Profile",
+          experiencia: "Experience", formacion: "Education", verCert: "View certificate ↗",
+          pieSig: "Full portfolio on the next page", portSub: "{n} websites designed, built and live · click any to visit",
+          doc: "Resume - Pablo Barazzutti" },
+  }[lang];
+  document.documentElement.lang = lang;
+  document.title = UI.doc;
+  document.querySelectorAll("[data-i]").forEach((el) => (el.textContent = UI[el.dataset.i]));
+
   // Nombre con el apellido resaltado
   const partes = CV.nombre.split(" ");
   $("nombre").innerHTML = esc(partes.slice(0, -1).join(" ")) + " <span>" + esc(partes.at(-1)) + "</span>";
-  $("titulo").textContent = CV.titulo;
+  $("titulo").textContent = t(CV, "titulo");
   $("foto").src = "../" + CV.foto;
-  $("perfil").textContent = CV.perfil;
+  $("perfil").textContent = t(CV, "perfil");
 
   $("contacto").innerHTML = CV.contacto.map((c) =>
     `<li><svg viewBox="0 0 24 24">${iconos[c.icono] || iconos.web}</svg>${link(c.link, esc(c.texto))}</li>`).join("");
 
   $("habilidades").innerHTML = CV.habilidades.map((g) =>
-    `<div class="grupo"><b>${esc(g.grupo)}</b><div class="chips">${g.items.map((i) => `<span>${esc(i)}</span>`).join("")}</div></div>`).join("");
+    `<div class="grupo"><b>${esc(t(g, "grupo"))}</b><div class="chips">${t(g, "items").map((i) => `<span>${esc(i)}</span>`).join("")}</div></div>`).join("");
 
   $("ia-chips").innerHTML = CV.ia.herramientas.map((i) => `<span>${esc(i)}</span>`).join("");
-  $("ia-texto").textContent = CV.ia.texto;
+  $("ia-texto").textContent = t(CV.ia, "texto");
 
   $("idiomas").innerHTML = CV.idiomas.map((i) =>
-    `<div class="idioma"><b>${esc(i.idioma)}</b><span>${esc(i.nivel)}</span></div>`).join("");
+    `<div class="idioma"><b>${esc(t(i, "idioma"))}</b><span>${esc(t(i, "nivel"))}</span></div>`).join("");
 
   $("experiencia").innerHTML = CV.experiencia.map((e) => {
-    const fecha = e.hasta ? `${e.desde} – ${e.hasta}` : e.desde;
-    const tareas = e.tareas.length ? `<ul>${e.tareas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : "";
+    const fecha = e.hasta ? `${e.desde} – ${CV.tr(e.hasta, lang)}` : e.desde;
+    const lista = t(e, "tareas") || [];
+    const tareas = lista.length ? `<ul>${lista.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
     return `<div class="trabajo">
-      <div class="fila"><h3>${esc(e.puesto)}</h3><span class="fecha">${esc(fecha)}</span></div>
-      <div class="empresa"><b>${esc(e.empresa)}</b> · ${esc(e.lugar)}</div>${tareas}</div>`;
+      <div class="fila"><h3>${esc(t(e, "puesto"))}</h3><span class="fecha">${esc(fecha)}</span></div>
+      <div class="empresa"><b>${esc(e.empresa)}</b> · ${esc(t(e, "lugar"))}</div>${tareas}</div>`;
   }).join("");
-  $("otras").textContent = CV.otrasExperiencias;
+  $("otras").textContent = t(CV, "otrasExperiencias");
 
   $("formacion").innerHTML = CV.formacion.map((f) => {
     const sub = [f.lugar, f.anio].filter(Boolean).join(" · ");
-    const det = f.detalle ? ` · ${esc(f.detalle)}` : "";
-    const cert = f.certificado ? ` · <a href="${esc(CV.sitio + f.certificado)}">Ver certificado ↗</a>` : "";
+    const det = t(f, "detalle") ? ` · ${esc(t(f, "detalle"))}` : "";
+    const cert = f.certificado ? ` · <a href="${esc(CV.sitio + f.certificado)}">${UI.verCert}</a>` : "";
     const ancho = !f.certificado ? " ancho" : "";
-    return `<div class="curso${ancho}"><b>${esc(f.titulo)}</b><span>${esc(sub)}${det}</span>${cert}</div>`;
+    return `<div class="curso${ancho}"><b>${esc(t(f, "titulo"))}</b><span>${esc(sub)}${det}</span>${cert}</div>`;
   }).join("");
 
   $("pie-izq").textContent = CV.nombre;
@@ -199,15 +217,15 @@
 
   // ---- Portfolio ----
   const n = CV.portfolio.length;
-  $("port-sub").textContent = `${n} sitios web desarrollados y publicados · clic en cada uno para visitarlo`;
-  $("port-nombre").innerHTML = `<b>${esc(CV.nombre)}</b>${esc(CV.titulo)}`;
+  $("port-sub").textContent = UI.portSub.replace("{n}", n);
+  $("port-nombre").innerHTML = `<b>${esc(CV.nombre)}</b>${esc(t(CV, "titulo"))}`;
   $("grilla").innerHTML = CV.portfolio.map((s) => {
     const dom = new URL(s.url).hostname.replace(/^www\./, "");
     return `<a class="sitio" href="${esc(s.url)}">
       <div class="img"><span class="sin">${esc(dom)}</span><img src="../${CV.captura(s.url)}" alt="" onerror="this.remove()"></div>
       <h3>${esc(s.nombre)}</h3>
       <div class="dom">${esc(dom)}</div>
-      <div class="meta"><i>${esc(s.plataforma)}</i>${esc(s.rubro)}</div></a>`;
+      <div class="meta"><i>${esc(CV.tr(s.plataforma, lang))}</i>${esc(CV.tr(s.rubro, lang))}</div></a>`;
   }).join("");
 </script>
 </body>

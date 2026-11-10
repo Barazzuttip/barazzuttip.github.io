@@ -40,6 +40,11 @@ h1, h2, h3 { font-family: "Sora", "Inter", sans-serif; line-height: 1.15; letter
 .links { display: flex; gap: 26px; margin-left: auto; font-size: 15px; color: var(--suave); }
 .links a { transition: color .2s; }
 .links a:hover, .links a.activo { color: var(--texto); }
+.selector-idioma { display: flex; padding: 3px; border: 1px solid var(--borde); border-radius: 999px; background: rgba(17, 28, 46, .6); }
+.selector-idioma button { font: 600 12px "Inter"; letter-spacing: .06em; color: var(--suave); background: none; border: 0; padding: 6px 10px; border-radius: 999px; cursor: pointer; transition: all .2s; }
+.selector-idioma button:hover { color: var(--texto); }
+.selector-idioma button[aria-pressed="true"] { background: var(--texto); color: var(--fondo); }
+.filtros[hidden] { display: none; }
 .hamburguesa { display: none; background: none; border: 0; width: 40px; height: 40px; cursor: pointer; position: relative; }
 .hamburguesa span { position: absolute; left: 9px; right: 9px; height: 2px; background: var(--texto); border-radius: 2px; transition: transform .3s, top .3s; }
 .hamburguesa span:first-child { top: 15px; } .hamburguesa span:last-child { top: 23px; }
@@ -189,7 +194,8 @@ h1, h2, h3 { font-family: "Sora", "Inter", sans-serif; line-height: 1.15; letter
   .links.abierto { transform: none; }
   .links a { padding: 14px 0; border-bottom: 1px solid var(--borde); font-size: 17px; }
   .hamburguesa { display: block; }
-  .nav .btn-chico { margin-left: auto; }
+  .selector-idioma { margin-left: auto; }
+  .nav-in { gap: 12px; }
 }
 @media (max-width: 560px) {
   .seccion { padding: 80px 0; }
