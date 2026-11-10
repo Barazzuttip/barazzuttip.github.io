@@ -1,0 +1,37 @@
+CV + PORTFOLIO - PABLO BARAZZUTTI
+=================================
+
+TODO SE EDITA EN UN SOLO ARCHIVO: datos.js
+(abrilo con VS Code o el Bloc de notas)
+
+Despues de editar, doble clic en: generar-pdf.bat
+  - Saca captura de los sitios nuevos (carpeta "capturas")
+  - Crea "CV - Pablo Barazzutti.pdf" en esta carpeta
+  - Tarda unos 20 segundos por cada sitio nuevo
+
+CAMBIOS COMUNES
+---------------
+* Agregar un sitio al portfolio:
+    En datos.js, dentro de "portfolio", copia una linea { nombre: ..., url: ... },
+    pegala abajo y cambia los datos. Despues corre generar-pdf.bat.
+
+* Un sitio cambio de diseno:
+    Borra su imagen de la carpeta "capturas" y corre generar-pdf.bat.
+
+* Si dejas SaleCore:
+    En "experiencia", cambia  hasta: "Presente"  por el ano, ej:  hasta: "2027"
+    Para un trabajo nuevo, copia un bloque { puesto: ... } y ponelo primero.
+
+* Cambiar la foto: reemplaza assets/foto.png (cuadrada).
+
+* Nuevo certificado: guarda la imagen en assets/certificados y agregalo en "formacion".
+
+VER EL PORTFOLIO EN TU PC
+-------------------------
+Abri index.html con doble clic.
+
+PUBLICAR EN GITHUB PAGES
+------------------------
+Subi TODO el contenido de esta carpeta a un repositorio llamado
+barazzuttip.github.io  -> queda en https://barazzuttip.github.io/
+Cada vez que generes un PDF nuevo, volve a subir los cambios.

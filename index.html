@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pablo Barazzutti · Desarrollador Web</title>
+<meta name="description" content="Portfolio de Pablo Barazzutti, desarrollador web front-end. Sitios para inmobiliarias y empresas de Estados Unidos.">
+<meta property="og:title" content="Pablo Barazzutti · Desarrollador Web">
+<meta property="og:description" content="Sitios web modernos para inmobiliarias y empresas de EE.UU.">
+<meta property="og:image" content="assets/foto.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="contenedor nav-in">
+    <a href="#inicio" class="marca"><span class="mono">PB</span><span class="marca-txt">Pablo Barazzutti</span></a>
+    <nav class="links" id="menu">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#certificados">Certificados</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-chico" href="CV - Pablo Barazzutti.pdf" download>Descargar CV</a>
+    <button class="hamburguesa" id="hamburguesa" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="brillo b1"></div><div class="brillo b2"></div>
+    <div class="contenedor hero-in">
+      <div class="hero-txt">
+        <p class="etiqueta"><span class="punto"></span><span id="estado">Desarrollador web · Trabajo remoto</span></p>
+        <h1>Hola, soy <span class="degradado" id="hero-nombre">Pablo</span>.<br>Diseño y desarrollo sitios web que trabajan por vos.</h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <div class="hero-btns">
+          <a class="btn" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn-borde" href="#contacto">Hablemos</a>
+        </div>
+        <dl class="numeros">
+          <div><dt id="n-sitios">0</dt><dd>sitios publicados</dd></div>
+          <div><dt id="n-cursos">0</dt><dd>certificaciones</dd></div>
+          <div><dt>EN · ES</dt><dd>clientes de EE.UU.</dd></div>
+        </dl>
+      </div>
+      <div class="hero-foto">
+        <div class="aro"><img id="hero-img" alt="Foto de Pablo Barazzutti"></div>
+        <div class="flotante f1"><b>HTML · CSS · JS</b><span>Front-end</span></div>
+        <div class="flotante f2"><b>Claude · ChatGPT</b><span>IA aplicada</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section class="seccion" id="proyectos">
+    <div class="contenedor">
+      <div class="seccion-cab revelar">
+        <p class="kicker">Portfolio</p>
+        <h2>Sitios que diseñé y desarrollé</h2>
+        <p class="bajada">Proyectos reales en producción para agentes inmobiliarios, brokers y empresas de Estados Unidos.</p>
+      </div>
+      <div class="filtros revelar" id="filtros" role="tablist"></div>
+      <div class="proyectos" id="lista-proyectos"></div>
+    </div>
+  </section>
+
+  <!-- SOBRE MI -->
+  <section class="seccion alt" id="sobre-mi">
+    <div class="contenedor sobre">
+      <div class="revelar">
+        <p class="kicker">Sobre mí</p>
+        <h2>Código prolijo, diseño cuidado y trato directo con el cliente.</h2>
+        <p class="texto" id="perfil"></p>
+        <div class="ia-card">
+          <div class="ia-icono"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
+          <div><h3>IA aplicada al trabajo</h3><p id="ia-texto"></p><div class="chips" id="ia-chips"></div></div>
+        </div>
+      </div>
+      <div class="habilidades revelar" id="habilidades"></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section class="seccion" id="experiencia">
+    <div class="contenedor angosto">
+      <div class="seccion-cab revelar"><p class="kicker">Trayectoria</p><h2>Experiencia</h2></div>
+      <ol class="linea" id="linea"></ol>
+    </div>
+  </section>
+
+  <!-- CERTIFICADOS -->
+  <section class="seccion alt" id="certificados">
+    <div class="contenedor">
+      <div class="seccion-cab revelar"><p class="kicker">Formación</p><h2>Certificaciones</h2><p class="bajada">Clic en cada certificado para verlo completo.</p></div>
+      <div class="certs" id="certs"></div>
+      <p class="extra revelar" id="formacion-extra"></p>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="seccion" id="contacto">
+    <div class="contenedor">
+      <div class="contacto revelar">
+        <div class="brillo b3"></div>
+        <p class="kicker">Contacto</p>
+        <h2>¿Tenés un proyecto en mente?</h2>
+        <p class="bajada">Escribime y lo charlamos. Respondo en español o en inglés.</p>
+        <div class="contacto-btns" id="contacto-btns"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie-in">
+    <span>© <span id="anio"></span> Pablo Barazzutti</span>
+    <a href="#inicio">Volver arriba ↑</a>
+  </div>
+</footer>
+
+<dialog class="visor" id="visor">
+  <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
+  <img id="visor-img" alt="">
+  <p id="visor-txt"></p>
+</dialog>
+
+<script src="datos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
